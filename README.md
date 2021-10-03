@@ -1,34 +1,188 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project setup :
 
-## Getting Started
+#### ・Nextjs
 
-First, run the development server:
+#### ・TypeScript
 
-```bash
-npm run dev
-# or
-yarn dev
+#### ・Apollo Client
+
+#### ・React-testing-library
+
+#### ・Next-page-tester
+
+#### ・Tailwind CSS
+
+#### ・Mock Service Worker(MSW)
+
+## 1. Nextjs Project 新規作成
+
+### 1-1. yarn install \*インストールしていない場合
+
+    npm install --global yarn
+    yarn --version
+
+### 1-2. create-next-app
+
+    npx create-next-app .
+
+#### Node.js version 10.13 以降が必要です。 -> ターミナル `node -v`で ver 確認出来ます。
+
+### 1-3. Apollo Client + heroicons + cross-fetch のインストール
+
+    yarn add @apollo/client graphql @apollo/react-hooks cross-fetch @heroicons/react
+
+### 1-4. React-Testing-Library + MSW + next-page-tester のインストール
+
+    yarn add -D msw next-page-tester jest @testing-library/react @types/jest @testing-library/jest-dom @testing-library/dom babel-jest @babel/core @testing-library/user-event jest-css-modules
+
+### 1-5. Project folder 直下に".babelrc"ファイルを作成して下記設定を追加
+
+    touch .babelrc
+
+```
+    {
+        "presets": ["next/babel"]
+    }
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1-6. package.json に jest の設定を追記
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+    "jest": {
+        "testPathIgnorePatterns": [
+            "<rootDir>/.next/",
+            "<rootDir>/node_modules/"
+        ],
+        "moduleNameMapper": {
+            "\\.(css)$": "<rootDir>/node_modules/jest-css-modules"
+        }
+    }
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### 1-7. package.json に test script を追記
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+    "scripts": {
+        ...
+        "test": "jest --env=jsdom --verbose"
+    },
+```
 
-## Learn More
+### 1-8. prettier の設定 : settings で Require Config + Format On Save にチェック
 
-To learn more about Next.js, take a look at the following resources:
+    touch .prettierrc
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+    {
+        "singleQuote": true,
+        "semi": false
+    }
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 2. TypeScript の導入
 
-## Deploy on Vercel
+https://nextjs.org/learn/excel/typescript/create-tsconfig
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2-1. 空の tsconfig.json 作成
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    touch tsconfig.json
+
+### 2-2. 必要 module のインストール
+
+    yarn add -D typescript @types/react @types/node
+
+### 2-3. 開発 server 起動
+
+    yarn dev
+
+### 2-4. \_app.js, index.js -> tsx へ拡張子変更
+
+### 2-5. AppProps 型追記
+
+```
+    import { AppProps } from 'next/app'
+
+    function MyApp({ Component, pageProps }: AppProps) {
+        return <Component {...pageProps} />
+    }
+
+    export default MyApp
+```
+
+## 3. Tailwind CSS の導入
+
+https://tailwindcss.com/docs/guides/nextjs
+
+### 3-1. 必要 module のインストール
+
+    yarn add tailwindcss@latest postcss@latest autoprefixer@latest
+
+### 3-2. tailwind.config.js, postcss.config.js の生成
+
+    npx tailwindcss init -p
+
+### 3-3. tailwind.config.js の purge 設定追加
+
+```
+module.exports = {
+    purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
+    darkMode: false,
+    theme: {
+        extend: {},
+    },
+    variants: {
+        extend: {},
+    },
+    plugins: [],
+}
+```
+
+### 3-4. globals.css の編集
+
+```
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## 4. Test 動作確認
+
+### 4-1. `__tests__`フォルダと`Home.test.tsx`ファイルの作成
+
+```
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import Home from '../pages/index'
+
+it('Should render title text', () => {
+  render(<Home />)
+  expect(screen.getByText('Next.js!')).toBeInTheDocument()
+})
+```
+
+### 4-2. yarn test -> テストが PASS するか確認
+
+```
+ PASS  __tests__/Home.test.tsx
+  ✓ Should render hello text (20 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.728 s, estimated 2 s
+```
+
+## 5. GraphQL codegen
+
+### 5-1. install modules + init
+
+    yarn add -D @graphql-codegen/cli
+    yarn graphql-codegen init
+    yarn
+    yarn add -D @graphql-codegen/typescript
+
+### 5-2. add queries in queries/queries.ts file
+
+### 5-3. generate types automatically
+
+    yarn gen-types
