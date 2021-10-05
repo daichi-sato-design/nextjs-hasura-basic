@@ -1,4 +1,4 @@
-import {VFC, ReactNode} from 'react'
+import { VFC, ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,9 +8,9 @@ interface Props {
   title: string
 }
 
-export const Layout:VFC<Props> = ({
+export const Layout: VFC<Props> = ({
   children,
-  title = "Welcome to Nextjs",
+  title = 'Welcome to Nextjs',
 }) => {
   return (
     <div className="flex flex-col justify-center items-center min-h-screen text-gray-600 text-sm font-mono">

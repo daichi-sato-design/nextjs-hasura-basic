@@ -1,15 +1,15 @@
-import { ChangeEvent, FormEvent, useState, VFC } from "react";
-import { todoVar } from "../cache";
-import { useReactiveVar } from "@apollo/client";
-import Link from "next/link";
+import { ChangeEvent, FormEvent, useState, VFC } from 'react'
+import { todoVar } from '../cache'
+import { useReactiveVar } from '@apollo/client'
+import Link from 'next/link'
 
-export const LocalStateA:VFC = () => {
-  const [input, setInput] = useState("")
+export const LocalStateA: VFC = () => {
+  const [input, setInput] = useState('')
   const todos = useReactiveVar(todoVar)
 
-  const submitHandler = (e:FormEvent<HTMLFormElement>) => {
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    todoVar([...todoVar(), {title: input}])
+    todoVar([...todoVar(), { title: input }])
     setInput('')
   }
   return (
@@ -47,4 +47,4 @@ export const LocalStateA:VFC = () => {
       </Link>
     </>
   )
-} 
+}

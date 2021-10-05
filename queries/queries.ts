@@ -1,8 +1,8 @@
-import {gql} from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const GET_USERS = gql`
   query GetUsers {
-    users(order_by: {created_at: desc}) {
+    users(order_by: { created_at: desc }) {
       id
       name
       created_at
@@ -12,7 +12,7 @@ export const GET_USERS = gql`
 // GET_USERS_LOCALはgen時はコメント化
 export const GET_USERS_LOCAL = gql`
   query GetUsers {
-    users(order_by: {created_at: desc}) @client {
+    users(order_by: { created_at: desc }) @client {
       id
       name
       created_at
@@ -22,7 +22,7 @@ export const GET_USERS_LOCAL = gql`
 
 export const GET_USERIDS = gql`
   query GetUserIds {
-    users(order_by: {created_at: desc}) {
+    users(order_by: { created_at: desc }) {
       id
     }
   }
@@ -40,7 +40,7 @@ export const GET_USERBY_ID = gql`
 
 export const CREATE_USER = gql`
   mutation CreateUser($name: String!) {
-    insert_users_one(object: {name: $name}) {
+    insert_users_one(object: { name: $name }) {
       id
       name
       created_at
@@ -60,7 +60,7 @@ export const DELETE_USER = gql`
 
 export const UPDATE_USER = gql`
   mutation UpdateUser($id: uuid!, $name: String!) {
-    update_users_by_pk(pk_columns: {id: $id}, _set: {name: $name}) {
+    update_users_by_pk(pk_columns: { id: $id }, _set: { name: $name }) {
       id
       name
       created_at

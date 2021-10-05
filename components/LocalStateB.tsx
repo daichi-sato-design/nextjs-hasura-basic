@@ -1,11 +1,11 @@
-import { VFC } from "react";
-import { todoVar } from "../cache";
-import { useReactiveVar } from "@apollo/client";
-import Link from "next/link";
+import { VFC } from 'react'
+import { todoVar } from '../cache'
+import { useReactiveVar } from '@apollo/client'
+import Link from 'next/link'
 
-export const LocalStateB:VFC = () => {
+export const LocalStateB: VFC = () => {
   const todos = useReactiveVar(todoVar)
-  return(
+  return (
     <>
       <h2 className="mb-3 text-xl font-bold">makeVar</h2>
       <p className="mb-2">Read task page</p>
