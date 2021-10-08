@@ -28,7 +28,7 @@ export const UserItem: VFC<Props> = memo(
             setEditedUser(user)
           }}
         >
-          Edited
+          Edit
         </button>
         <button
           className="mr-1 py-1 px-3 text-white bg-red-600 hover:bg-red-700 rounded-2xl focus:outline-none"
