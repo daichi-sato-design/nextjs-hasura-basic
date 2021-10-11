@@ -13,7 +13,7 @@ import {
   DeleteUserMutation,
 } from '../types/generated/graphql'
 import { Layout } from '../components/Layout'
-import { UserItem } from '../components/UserItem'
+import { UserItemMemo } from '../components/UserItem'
 
 const HasuraCRUD: VFC = () => {
   const [editedUser, setEditedUser] = useState({ id: '', name: '' })
@@ -107,7 +107,7 @@ const HasuraCRUD: VFC = () => {
 
       {data?.users.map((user) => {
         return (
-          <UserItem
+          <UserItemMemo
             key={user.id}
             user={user}
             delete_users_by_pk={delete_users_by_pk}
