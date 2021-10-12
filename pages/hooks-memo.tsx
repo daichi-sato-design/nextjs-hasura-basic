@@ -1,6 +1,6 @@
 import { VFC } from 'react'
 import { Layout } from '../components/Layout'
-import { CreateUser } from '../components/createUser'
+import { CreateUser } from '../components/CreateUser'
 
 const HooksMemo: VFC = () => {
   return (
